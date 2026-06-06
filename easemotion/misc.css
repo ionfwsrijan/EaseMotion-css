@@ -151,16 +151,16 @@
 }
 
 .ease-float {
-  animation: ease-kf-float 3s ease-in-out infinite;
+  animation: ease-kf-float var(--ease-speed-slow) var(--ease-ease) infinite;
 }
 
 .ease-pulse {
-  animation: ease-kf-pulse 2s var(--ease-ease);
+  animation: ease-kf-pulse var(--ease-speed-slow) var(--ease-ease);
   animation-iteration-count: var(--ease-animation-iterations);
 }
 
 .ease-ping {
-  animation: ease-kf-ping 1s cubic-bezier(0, 0, 0.2, 1);
+  animation: ease-kf-ping var(--ease-speed-slow) var(--ease-ease-out);
   animation-iteration-count: var(--ease-animation-iterations);
 }
 
@@ -177,7 +177,7 @@
 }
 
 .ease-pulse-border-emphasis {
-  animation: ease-kf-pulse-border-emphasis 1.5s var(--ease-ease);
+  animation: ease-kf-pulse-border-emphasis var(--ease-speed-slow) var(--ease-ease);
   animation-iteration-count: var(--ease-animation-iterations);
 }
 
@@ -205,7 +205,7 @@
   background: linear-gradient(
     120deg,
     transparent 30%,
-    rgba(255, 255, 255, 0.15) 50%,
+    var(--ease-shimmer-color) 50%,
     transparent 70%
   );
   background-size: 200% auto;
@@ -220,7 +220,7 @@
     var(--ease-color-primary)
   );
   background-size: 200% 200%;
-  animation: ease-kf-gradient-rotation 3s var(--ease-ease);
+  animation: ease-kf-gradient-rotation var(--ease-speed-slow) var(--ease-ease);
   animation-iteration-count: var(--ease-animation-iterations);
 }
 
@@ -233,13 +233,13 @@
     var(--ease-color-neutral-100) 80px
   );
   background-size: 1000px 100%;
-  animation: ease-kf-shimmer 2s linear forwards;
+  animation: ease-kf-shimmer var(--ease-speed-slow) linear forwards;
   animation-iteration-count: var(--ease-animation-iterations);
 }
 
 .ease-skeleton-pulse {
   background-color: var(--ease-color-neutral-200);
-  animation: ease-kf-pulse-fade 1.5s var(--ease-ease);
+  animation: ease-kf-pulse-fade var(--ease-speed-slow) var(--ease-ease);
   animation-iteration-count: var(--ease-animation-iterations);
 }
 
@@ -267,7 +267,7 @@
     ease-kf-typewriter-loop
     var(--ease-typewriter-duration)
     steps(var(--ease-typewriter-steps), end),
-    ease-kf-cursor-blink 0.8s step-end;
+    ease-kf-cursor-blink var(--ease-speed-slow) step-end;
   animation-iteration-count: var(--ease-animation-iterations);
 
   will-change: width;
