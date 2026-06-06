@@ -12,10 +12,3 @@
 .ease-duration-medium { animation-duration: var(--ease-speed-medium); }
 .ease-duration-slow   { animation-duration: var(--ease-speed-slow); }
 
-@media (prefers-reduced-motion: reduce) {
-  [class*="ease-"] {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}

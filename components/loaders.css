@@ -46,3 +46,9 @@
     animation-delay: 0.4s;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ease-loader {
+    animation: none !important;
+  }
+}

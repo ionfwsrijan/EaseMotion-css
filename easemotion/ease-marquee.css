@@ -130,11 +130,7 @@
 /* ============================================
    RESPONSIVE BEHAVIOR
    ============================================ */
-@media (prefers-reduced-motion: reduce) {
-  .ease-marquee-track {
-    animation: none;
-  }
-}
+
 
 /* ============================================
    ACCESSIBILITY

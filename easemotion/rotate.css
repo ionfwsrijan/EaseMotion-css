@@ -32,3 +32,10 @@
 .ease-rotate-image-exit {
   animation: ease-kf-rotate-image-exit var(--ease-speed-medium) var(--ease-ease) both;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="ease-rotate"] {
+    animation: none !important;
+    transform: none !important;
+  }
+}

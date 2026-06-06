@@ -284,19 +284,4 @@
     flex-wrap: wrap;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-
-  .ease-btn,
-  .ease-btn-hover,
-  .ease-btn-loading::after {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  .ease-btn:active,
-  .ease-btn-hover:hover {
-    transform: none !important;
-  }
-}
 }

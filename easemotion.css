@@ -44,6 +44,7 @@
 
 
 /* Accessibility: Respect user's reduced motion preference */
+/* Consolidated single authoritative rule — do not add more */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -52,7 +53,11 @@
     animation-iteration-count: 1 !important;
     animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
+  }
+  [class*="ease-"] {
+    transform: none !important;
   }
 }
 

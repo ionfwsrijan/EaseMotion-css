@@ -49,3 +49,10 @@
 .ease-bounce-button-exit {
   animation: ease-kf-bounce-button-exit var(--ease-speed-medium) var(--ease-ease) both;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="ease-bounce"] {
+    animation: none !important;
+    transform: none !important;
+  }
+}
