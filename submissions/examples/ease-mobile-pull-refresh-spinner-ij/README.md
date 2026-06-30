@@ -12,4 +12,4 @@ A "pull to refresh" interaction with circular spinner rotation tied to pull prog
 
 ## Usage
 
-Set `--pull-progress` (0 to 1) on `.pr-spinner`. CSS uses `transform: rotate(calc(var(--pull-progress) * 360deg))` for rotation. Add `.pr-refreshing` class for the continuous spin animation.
+Set `--pull-progress` (0 to 1) on `.pr-spinner`. CSS uses `transform: rotate(calc(var(--pull-progress) * 360deg))`. Add `.pr-refreshing` class for the continuous spin animation.
