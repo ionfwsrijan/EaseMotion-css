@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Swatch Picker Demo (ij)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ease-color-primary: #6c63ff;
+      --ease-color-bg: #0f172a;
+      --ease-color-surface: #1e293b;
+      --ease-color-text: #f8fafc;
+      --ease-color-muted: #64748b;
+      --ease-color-neutral-200: #334155;
+      --ease-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      --ease-font-sans: "Inter", system-ui, -apple-system, sans-serif;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --ease-color-bg: #f8fafc;
+        --ease-color-surface: #ffffff;
+        --ease-color-text: #0f172a;
+        --ease-color-muted: #94a3b8;
+        --ease-color-neutral-200: #e2e8f0;
+        --ease-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    body {
+      font-family: var(--ease-font-sans);
+      background: var(--ease-color-bg);
+      color: var(--ease-color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 3rem 1.5rem;
+    }
+
+    .page-header {
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      color: var(--ease-color-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .showcase-card {
+      background: var(--ease-color-surface);
+      border: 1px solid var(--ease-color-neutral-200);
+      box-shadow: var(--ease-shadow-lg);
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .csp-selected-label {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--ease-color-neutral-200);
+      font-size: 0.9rem;
+      color: var(--ease-color-muted);
+    }
+
+    .csp-selected-label strong {
+      color: var(--ease-color-text);
+    }
+  </style>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Color Swatch Picker</h1>
+    <p>
+      Click any color circle to select it. A ring and checkmark indicate the active selection. Hover for a subtle scale preview.
+    </p>
+  </header>
+
+  <main class="showcase-card">
+    <div class="csp-grid" id="swatchGrid">
+      <button class="csp-swatch" style="--csp-color: #ef4444" data-label="Red"></button>
+      <button class="csp-swatch" style="--csp-color: #f97316" data-label="Orange"></button>
+      <button class="csp-swatch" style="--csp-color: #f59e0b" data-label="Amber"></button>
+      <button class="csp-swatch" style="--csp-color: #eab308" data-label="Yellow"></button>
+      <button class="csp-swatch" style="--csp-color: #84cc16" data-label="Lime"></button>
+      <button class="csp-swatch" style="--csp-color: #22c55e" data-label="Green"></button>
+      <button class="csp-swatch" style="--csp-color: #14b8a6" data-label="Teal"></button>
+      <button class="csp-swatch" style="--csp-color: #06b6d4" data-label="Cyan"></button>
+      <button class="csp-swatch" style="--csp-color: #0ea5e9" data-label="Sky"></button>
+      <button class="csp-swatch" style="--csp-color: #3b82f6" data-label="Blue"></button>
+      <button class="csp-swatch" style="--csp-color: #6366f1" data-label="Indigo"></button>
+      <button class="csp-swatch" style="--csp-color: #8b5cf6" data-label="Violet"></button>
+      <button class="csp-swatch" style="--csp-color: #a855f7" data-label="Purple"></button>
+      <button class="csp-swatch" style="--csp-color: #d946ef" data-label="Fuchsia"></button>
+      <button class="csp-swatch" style="--csp-color: #ec4899" data-label="Pink"></button>
+      <button class="csp-swatch" style="--csp-color: #f43f5e" data-label="Rose"></button>
+      <button class="csp-swatch" style="--csp-color: #78716c" data-label="Stone"></button>
+      <button class="csp-swatch" style="--csp-color: #64748b" data-label="Slate"></button>
+      <button class="csp-swatch" style="--csp-color: #000000" data-label="Black"></button>
+      <button class="csp-swatch" style="--csp-color: #ffffff" data-label="White"></button>
+    </div>
+
+    <div class="csp-selected-label">
+      Selected: <strong id="selectedDisplay">None</strong>
+    </div>
+  </main>
+
+  <script>
+    const grid = document.getElementById('swatchGrid');
+    const display = document.getElementById('selectedDisplay');
+
+    grid.addEventListener('click', (e) => {
+      const swatch = e.target.closest('.csp-swatch');
+      if (!swatch) return;
+
+      grid.querySelectorAll('.csp-swatch').forEach((s) => s.classList.remove('csp-selected'));
+      swatch.classList.add('csp-selected');
+      display.textContent = swatch.dataset.label || swatch.style.getPropertyValue('--csp-color');
+    });
+  </script>
+
+</body>
+</html>
