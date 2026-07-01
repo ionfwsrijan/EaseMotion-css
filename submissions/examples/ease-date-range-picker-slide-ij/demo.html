@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Date Range Picker Slide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section class="em-drps">
+    <h1 class="em-drps-title">Date Range Picker Slide</h1>
+    <p class="em-drps-desc">Click a start date, then click an end date. The selected range is highlighted and the next month slides into view.</p>
+
+    <div class="em-drps-picker">
+      <div class="em-drps-header">
+        <button class="em-drps-nav em-drps-nav--prev" aria-label="Previous month">&larr;</button>
+        <span class="em-drps-label" id="emDrpsLabel">January 2026</span>
+        <button class="em-drps-nav em-drps-nav--next" aria-label="Next month">&rarr;</button>
+      </div>
+
+      <div class="em-drps-calendars">
+        <div class="em-drps-month" id="emDrpsMonth0">
+          <div class="em-drps-weekdays">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div class="em-drps-grid" id="emDrpsGrid0"></div>
+        </div>
+        <div class="em-drps-month em-drps-month--slide" id="emDrpsMonth1">
+          <div class="em-drps-weekdays">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div class="em-drps-grid" id="emDrpsGrid1"></div>
+        </div>
+      </div>
+
+      <div class="em-drps-info">
+        <span>Start: <strong id="emDrpsStart">—</strong></span>
+        <span>End: <strong id="emDrpsEnd">—</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      var startEl = document.getElementById('emDrpsStart');
+      var endEl = document.getElementById('emDrpsEnd');
+      var labelEl = document.getElementById('emDrpsLabel');
+      var grids = [document.getElementById('emDrpsGrid0'), document.getElementById('emDrpsGrid1')];
+      var months = [document.getElementById('emDrpsMonth0'), document.getElementById('emDrpsMonth1')];
+
+      var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var today = new Date();
+      var baseYear = today.getFullYear();
+      var baseMonth = today.getMonth();
+
+      var startDate = null;
+      var endDate = null;
+
+      function daysInMonth(m, y) { return new Date(y, m + 1, 0).getDate(); }
+
+      function render() {
+        var ym0 = baseYear * 12 + baseMonth;
+        var ym1 = ym0 + 1;
+        var y0 = Math.floor(ym0 / 12), m0 = ym0 % 12;
+        var y1 = Math.floor(ym1 / 12), m1 = ym1 % 12;
+
+        labelEl.textContent = monthNames[m0] + ' ' + y0 + ' — ' + monthNames[m1] + ' ' + y1;
+
+        for (var gi = 0; gi < 2; gi++) {
+          var y = gi === 0 ? y0 : y1;
+          var m = gi === 0 ? m0 : m1;
+          var grid = grids[gi];
+          grid.innerHTML = '';
+          var firstDow = new Date(y, m, 1).getDay();
+          var dim = daysInMonth(m, y);
+
+          for (var i = 0; i < firstDow; i++) {
+            var blank = document.createElement('span');
+            blank.className = 'em-drps-cell em-drps-cell--blank';
+            grid.appendChild(blank);
+          }
+
+          for (var d = 1; d <= dim; d++) {
+            var cell = document.createElement('button');
+            cell.className = 'em-drps-cell';
+            cell.dataset.year = y;
+            cell.dataset.month = m;
+            cell.dataset.day = d;
+            cell.textContent = d;
+
+            var dateVal = y * 10000 + m * 100 + d;
+
+            cell.addEventListener('click', (function(dv, el) {
+              return function() { handleClick(dv, el); };
+            })(dateVal, cell));
+
+            if (startDate !== null && endDate !== null) {
+              var s = startDate, e = endDate;
+              if (s > e) { var tmp = s; s = e; e = tmp; }
+              if (dateVal >= s && dateVal <= e) {
+                cell.classList.add('em-drps-cell--in-range');
+              }
+              if (dateVal === s) cell.classList.add('em-drps-cell--start');
+              if (dateVal === e) cell.classList.add('em-drps-cell--end');
+            } else if (startDate !== null) {
+              if (dateVal === startDate) cell.classList.add('em-drps-cell--start');
+            }
+
+            grid.appendChild(cell);
+          }
+        }
+      }
+
+      function handleClick(dateVal, cell) {
+        if (startDate === null || endDate !== null) {
+          startDate = dateVal;
+          endDate = null;
+          startEl.textContent = cell.dataset.month + '/' + cell.dataset.day + '/' + cell.dataset.year;
+          endEl.textContent = '—';
+        } else {
+          endDate = dateVal;
+          var y = Math.floor(endDate / 10000);
+          var m = Math.floor((endDate % 10000) / 100);
+          var d = endDate % 100;
+          endEl.textContent = m + '/' + d + '/' + y;
+        }
+        render();
+      }
+
+      function slide(dir) {
+        months[1].classList.remove('em-drps-month--slide-active');
+
+        var offset = dir === 'next' ? 1 : -1;
+        baseMonth += offset;
+        if (baseMonth < 0) { baseMonth = 11; baseYear--; }
+        if (baseMonth > 11) { baseMonth = 0; baseYear++; }
+
+        if (dir === 'next') {
+          months[0].classList.remove('em-drps-month--slide-prev');
+          months[1].classList.remove('em-drps-month--slide-next');
+          months[0].classList.add('em-drps-month--slide-prev');
+          months[1].classList.add('em-drps-month--slide-next');
+        } else {
+          months[0].classList.remove('em-drps-month--slide-next');
+          months[1].classList.remove('em-drps-month--slide-prev');
+          months[0].classList.add('em-drps-month--slide-next');
+          months[1].classList.add('em-drps-month--slide-prev');
+        }
+
+        render();
+
+        requestAnimationFrame(function() {
+          months[1].classList.add('em-drps-month--slide-active');
+        });
+      }
+
+      document.querySelector('.em-drps-nav--prev').addEventListener('click', function() { slide('prev'); });
+      document.querySelector('.em-drps-nav--next').addEventListener('click', function() { slide('next'); });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
