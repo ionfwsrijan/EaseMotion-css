@@ -1,0 +1,130 @@
+/* =============================================================
+   Submission: ease-file-attachment-preview-ij
+   Effect: File Attachment Preview with Slide-In Animation
+   ============================================================= */
+
+:root {
+  --fap-radius:       0.75rem;
+  --fap-bg:           var(--ease-color-surface, #1e293b);
+  --fap-border:       var(--ease-color-neutral-200, #334155);
+  --fap-text:         var(--ease-color-text, #f8fafc);
+  --fap-muted:        var(--ease-color-muted, #64748b);
+  --fap-remove-bg:    #ef4444;
+  --fap-remove-color: #fff;
+  --fap-transition:   0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Card ── */
+.fap-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.125rem;
+  background: var(--fap-bg);
+  border: 1px solid var(--fap-border);
+  border-radius: var(--fap-radius);
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fap-card.fap-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fap-card:hover {
+  border-color: #6c63ff;
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.15);
+}
+
+/* ── Info ── */
+.fap-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.fap-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fap-size {
+  font-size: 0.8rem;
+  color: var(--fap-muted);
+}
+
+/* ── Remove button ── */
+.fap-remove {
+  flex-shrink: 0;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--fap-remove-color);
+  background: var(--fap-remove-bg);
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  pointer-events: none;
+}
+
+.fap-card:hover .fap-remove {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.fap-remove:hover {
+  background: #dc2626;
+}
+
+.fap-remove:focus-visible {
+  outline: 2px solid var(--fap-remove-color);
+  outline-offset: 2px;
+}
+
+/* ── Keyframes ── */
+@keyframes fapSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fap-card.fap-visible {
+  animation: fapSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  .fap-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+
+  .fap-remove {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    pointer-events: auto;
+  }
+}
