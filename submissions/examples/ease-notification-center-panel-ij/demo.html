@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Center Panel - EaseMotion CSS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ncp-container">
+        <h1>Notification Center Panel</h1>
+        <p>A slide-out notification panel with smooth CSS transitions. Click the bell icon to open it.</p>
+
+        <button class="ncp-bell" aria-label="Toggle notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="ncp-badge">3</span>
+        </button>
+
+        <div class="ncp-overlay"></div>
+
+        <aside class="ncp-panel">
+            <div class="ncp-header">
+                <h2>Notifications</h2>
+                <button class="ncp-close" aria-label="Close panel">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="ncp-list">
+                <div class="ncp-item ncp-unread">
+                    <div class="ncp-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <div class="ncp-item-body">
+                        <p class="ncp-item-text"><strong>Security alert</strong> New login from Chrome on Windows</p>
+                        <span class="ncp-item-time">2 min ago</span>
+                    </div>
+                </div>
+                <div class="ncp-item ncp-unread">
+                    <div class="ncp-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="ncp-item-body">
+                        <p class="ncp-item-text"><strong>New message</strong> Sarah sent you a project proposal</p>
+                        <span class="ncp-item-time">15 min ago</span>
+                    </div>
+                </div>
+                <div class="ncp-item ncp-unread">
+                    <div class="ncp-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div class="ncp-item-body">
+                        <p class="ncp-item-text"><strong>Update available</strong> Version 3.2.1 is ready to install</p>
+                        <span class="ncp-item-time">1 hour ago</span>
+                    </div>
+                </div>
+                <div class="ncp-item">
+                    <div class="ncp-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="ncp-item-body">
+                        <p class="ncp-item-text"><strong>Report ready</strong> Weekly analytics report is now available</p>
+                        <span class="ncp-item-time">3 hours ago</span>
+                    </div>
+                </div>
+                <div class="ncp-item">
+                    <div class="ncp-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="ncp-item-body">
+                        <p class="ncp-item-text"><strong>Activity</strong> Your pull request was merged</p>
+                        <span class="ncp-item-time">Yesterday</span>
+                    </div>
+                </div>
+                <div class="ncp-item">
+                    <div class="ncp-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ncp-item-body">
+                        <p class="ncp-item-text"><strong>Comment</strong> Alex replied to your thread</p>
+                        <span class="ncp-item-time">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ncp-footer">
+                <button class="ncp-mark-read">Mark all as read</button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        (function() {
+            var panel = document.querySelector('.ncp-panel');
+            var bell = document.querySelector('.ncp-bell');
+            var close = document.querySelector('.ncp-close');
+            var overlay = document.querySelector('.ncp-overlay');
+            var container = document.querySelector('.ncp-container');
+
+            function open() {
+                container.classList.add('ncp-open');
+            }
+
+            function closePanel() {
+                container.classList.remove('ncp-open');
+            }
+
+            bell.addEventListener('click', open);
+            close.addEventListener('click', closePanel);
+            overlay.addEventListener('click', closePanel);
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && container.classList.contains('ncp-open')) {
+                    closePanel();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
