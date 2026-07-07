@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert Zone Highlight — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #0f0f1a;">
+
+  <div class="alert-zone" id="alertZone">
+    <div class="alert-zone__glow"></div>
+
+    <div class="alert-zone__icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2L1 21h22L12 2zm1 16h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+      </svg>
+    </div>
+
+    <h3 class="alert-zone__title">Critical Alert</h3>
+    <p class="alert-zone__message">Anomaly detected in the main reactor core. Immediate action required.</p>
+
+    <button class="alert-zone__trigger" id="triggerBtn">Toggle Alert</button>
+
+    <div class="alert-zone__controls">
+      <label>
+        Zone background
+        <input type="color" value="#2d2d44" data-var="--zone-bg">
+      </label>
+      <label>
+        Alert color
+        <input type="color" value="#ff4444" data-var="--alert-color">
+      </label>
+      <label>
+        Pulse speed
+        <input type="range" min="0.3" max="3" step="0.1" value="1" data-var="--pulse-duration">
+        <span id="pulse-val">1s</span>
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const zone = document.getElementById("alertZone");
+    const btn = document.getElementById("triggerBtn");
+
+    document.querySelectorAll("[data-var]").forEach(input => {
+      input.addEventListener("input", () => {
+        const val = input.type === "range" ? input.value + "s" : input.value;
+        root.style.setProperty(input.dataset.var, val);
+        if (input.type === "range") {
+          document.getElementById("pulse-val").textContent = val;
+        }
+      });
+    });
+
+    btn.addEventListener("click", () => {
+      zone.classList.toggle("alert-zone--active");
+      btn.textContent = zone.classList.contains("alert-zone--active") ? "Dismiss Alert" : "Toggle Alert";
+    });
+  </script>
+</body>
+</html>
