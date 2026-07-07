@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alignment Guide Ruler — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #0f0f1a;">
+
+  <div class="alignment-guide">
+    <div class="alignment-guide__canvas">
+      <div class="alignment-guide__ruler-h" data-end="300"></div>
+      <div class="alignment-guide__ruler-v" data-end="200"></div>
+      <div class="alignment-guide__crosshair"></div>
+      <div class="alignment-guide__center-dot"></div>
+      <div class="alignment-guide__target"></div>
+    </div>
+
+    <div class="alignment-guide__info">
+      <div class="alignment-guide__coord">X: <span id="coord-x">150</span>px</div>
+      <div class="alignment-guide__coord">Y: <span id="coord-y">100</span>px</div>
+      <div class="alignment-guide__coord">Origin: <span>Center</span></div>
+    </div>
+
+    <div class="alignment-guide__controls">
+      <label>
+        Ruler color
+        <input type="color" value="#4ecdc4" data-var="--ruler-color">
+      </label>
+      <label>
+        Guide background
+        <input type="color" value="#1a1a2e" data-var="--guide-bg">
+      </label>
+      <label>
+        Animation speed
+        <input type="range" min="0.2" max="1.5" step="0.05" value="0.6" data-var="--guide-duration">
+        <span id="speed-val">0.6s</span>
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+
+    document.querySelectorAll("[data-var]").forEach(input => {
+      input.addEventListener("input", () => {
+        const val = input.type === "range" ? input.value + "s" : input.value;
+        root.style.setProperty(input.dataset.var, val);
+        if (input.type === "range") {
+          document.getElementById("speed-val").textContent = val;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
