@@ -1,0 +1,23 @@
+﻿:root {
+  --toggle-width: 60px;
+  --toggle-height: 30px;
+  --toggle-bg-off: #ccc;
+  --toggle-bg-on: #4caf50;
+  --toggle-knob: #fff;
+  --toggle-transition: 0.3s ease;
+  --toggle-radius: 50px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #1e2a38; }
+.toggle-card { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2.5rem; background: #2a3a4a; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+h2 { color: #eef; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.5px; }
+.airplane-toggle { display: inline-block; cursor: pointer; }
+.airplane-toggle input { display: none; }
+.toggle-track { display: flex; align-items: center; width: var(--toggle-width); height: var(--toggle-height); background: var(--toggle-bg-off); border-radius: var(--toggle-radius); padding: 3px; transition: background var(--toggle-transition); position: relative; }
+.toggle-icon { display: inline-flex; align-items: center; justify-content: center; width: calc(var(--toggle-height) - 6px); height: calc(var(--toggle-height) - 6px); background: var(--toggle-knob); border-radius: 50%; font-size: 0.85rem; transition: transform var(--toggle-transition); box-shadow: 0 2px 6px rgba(0,0,0,0.2); transform: translateX(0); }
+.airplane-toggle input:checked + .toggle-track { background: var(--toggle-bg-on); }
+.airplane-toggle input:checked + .toggle-track .toggle-icon { transform: translateX(calc(var(--toggle-width) - var(--toggle-height))); }
+.airplane-toggle input:checked + .toggle-track .toggle-icon { animation: fly 0.4s ease; }
+@keyframes fly { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(calc((var(--toggle-width) - var(--toggle-height)) / 2)) rotate(-10deg); } 100% { transform: translateX(calc(var(--toggle-width) - var(--toggle-height))) rotate(0deg); } }
+.toggle-label { color: #8899aa; font-size: 0.85rem; transition: color var(--toggle-transition); }
+.airplane-toggle input:checked ~ .toggle-label { color: #4caf50; content: "On"; }
