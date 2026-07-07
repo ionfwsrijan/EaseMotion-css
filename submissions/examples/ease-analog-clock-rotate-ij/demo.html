@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EaseMotion CSS - Analog Clock</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Analog Clock</h1>
+
+<div class="clock-face" id="clockFace">
+
+<div class="tick major" style="transform: rotate(0deg)"></div>
+<div class="tick" style="transform: rotate(30deg)"></div>
+<div class="tick major" style="transform: rotate(60deg)"></div>
+<div class="tick" style="transform: rotate(90deg)"></div>
+<div class="tick major" style="transform: rotate(120deg)"></div>
+<div class="tick" style="transform: rotate(150deg)"></div>
+<div class="tick major" style="transform: rotate(180deg)"></div>
+<div class="tick" style="transform: rotate(210deg)"></div>
+<div class="tick major" style="transform: rotate(240deg)"></div>
+<div class="tick" style="transform: rotate(270deg)"></div>
+<div class="tick major" style="transform: rotate(300deg)"></div>
+<div class="tick" style="transform: rotate(330deg)"></div>
+
+<div class="hand hour" id="hourHand"></div>
+<div class="hand minute" id="minuteHand"></div>
+<div class="hand second" id="secondHand"></div>
+
+<div class="center-dot"></div>
+
+</div>
+
+<div class="labels">
+<span>CSS-Driven</span>
+<span>&#8226;</span>
+<span>No JS Clock</span>
+</div>
+
+</div>
+
+<script>
+(function() {
+  const now = new Date();
+  const h = now.getHours() % 12;
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+
+  const hourDeg = (h * 30) + (m * 0.5);
+  const minDeg = (m * 6) + (s * 0.1);
+  const secDeg = s * 6;
+
+  const hourHand = document.getElementById('hourHand');
+  const minuteHand = document.getElementById('minuteHand');
+  const secondHand = document.getElementById('secondHand');
+
+  hourHand.style.animation = 'none';
+  minuteHand.style.animation = 'none';
+  secondHand.style.animation = 'none';
+
+  hourHand.style.transform = 'translateX(-50%) rotate(' + hourDeg + 'deg)';
+  minuteHand.style.transform = 'translateX(-50%) rotate(' + minDeg + 'deg)';
+  secondHand.style.transform = 'translateX(-50%) rotate(' + secDeg + 'deg)';
+
+  requestAnimationFrame(function() {
+    hourHand.style.animation = '';
+    minuteHand.style.animation = '';
+    secondHand.style.animation = '';
+  });
+})();
+</script>
+
+</body>
+</html>

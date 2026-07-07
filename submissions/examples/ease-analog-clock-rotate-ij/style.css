@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --clock-bg: #1a1a2e;
+  --hand-color: #4ecdc4;
+  --tick-duration: 1s;
+}
+
+body {
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 40px;
+  font-size: 1.8rem;
+}
+
+.clock-face {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: var(--clock-bg);
+  border: 4px solid var(--hand-color);
+  margin: 0 auto 30px;
+}
+
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: var(--hand-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  background: var(--hand-color);
+}
+
+.hand.hour {
+  width: 6px;
+  height: 70px;
+  margin-left: -3px;
+  animation: rotateHour calc(var(--tick-duration) * 43200) linear infinite;
+}
+
+.hand.minute {
+  width: 4px;
+  height: 100px;
+  margin-left: -2px;
+  animation: rotateMinute calc(var(--tick-duration) * 3600) linear infinite;
+}
+
+.hand.second {
+  width: 2px;
+  height: 120px;
+  margin-left: -1px;
+  background: #ff6b6b;
+  animation: rotateSecond calc(var(--tick-duration) * 60) linear infinite;
+}
+
+.tick {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background: rgba(78, 205, 196, 0.5);
+  transform-origin: 50% 132px;
+  border-radius: 1px;
+}
+
+.tick.major {
+  height: 14px;
+  width: 3px;
+  background: var(--hand-color);
+}
+
+.labels {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.labels span {
+  color: var(--hand-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@keyframes rotateSecond {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes rotateMinute {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes rotateHour {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
