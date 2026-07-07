@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EaseMotion CSS - Amazon Carousel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Amazon-Style Product Carousel</h1>
+
+<div class="carousel">
+
+<div class="track" id="track">
+
+<div class="card">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%232d2d44'/%3E%3Ctext x='100' y='110' font-size='60' text-anchor='middle' fill='%234ecdc4'%3E📱%3C/text%3E%3C/svg%3E" alt="Product 1">
+  <h3>Wireless Headphones</h3>
+  <p class="price">$49.99</p>
+</div>
+
+<div class="card">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%232d2d44'/%3E%3Ctext x='100' y='110' font-size='60' text-anchor='middle' fill='%234ecdc4'%3E⌚%3C/text%3E%3C/svg%3E" alt="Product 2">
+  <h3>Smart Watch</h3>
+  <p class="price">$89.99</p>
+</div>
+
+<div class="card">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%232d2d44'/%3E%3Ctext x='100' y='110' font-size='60' text-anchor='middle' fill='%234ecdc4'%3E📷%3C/text%3E%3C/svg%3E" alt="Product 3">
+  <h3>Digital Camera</h3>
+  <p class="price">$299.99</p>
+</div>
+
+<div class="card">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%232d2d44'/%3E%3Ctext x='100' y='110' font-size='60' text-anchor='middle' fill='%234ecdc4'%3E💻%3C/text%3E%3C/svg%3E" alt="Product 4">
+  <h3>Laptop Stand</h3>
+  <p class="price">$34.99</p>
+</div>
+
+<div class="card">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%232d2d44'/%3E%3Ctext x='100' y='110' font-size='60' text-anchor='middle' fill='%234ecdc4'%3E🎧%3C/text%3E%3C/svg%3E" alt="Product 5">
+  <h3>Bluetooth Speaker</h3>
+  <p class="price">$59.99</p>
+</div>
+
+<div class="card">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%232d2d44'/%3E%3Ctext x='100' y='110' font-size='60' text-anchor='middle' fill='%234ecdc4'%3E🖱️%3C/text%3E%3C/svg%3E" alt="Product 6">
+  <h3>Ergonomic Mouse</h3>
+  <p class="price">$29.99</p>
+</div>
+
+</div>
+
+<button class="arrow prev" onclick="slide(-1)">&#10094;</button>
+<button class="arrow next" onclick="slide(1)">&#10095;</button>
+
+</div>
+
+<div class="dots" id="dots"></div>
+
+</div>
+
+<script>
+let current = 0;
+const track = document.getElementById('track');
+const cards = track.querySelectorAll('.card');
+const total = cards.length;
+const visible = window.innerWidth <= 600 ? 2 : 3;
+const dotsContainer = document.getElementById('dots');
+
+function updateDots() {
+  const max = Math.ceil(total / visible) - 1;
+  dotsContainer.innerHTML = '';
+  for (let i = 0; i <= max; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === current ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dotsContainer.appendChild(dot);
+  }
+}
+
+function goTo(index) {
+  current = index;
+  const max = Math.ceil(total / visible) - 1;
+  if (current < 0) current = max;
+  if (current > max) current = 0;
+  const offset = -(current * (100 / visible));
+  track.style.transform = 'translateX(' + offset + '%)';
+  updateDots();
+}
+
+function slide(dir) { goTo(current + dir); }
+
+updateDots();
+</script>
+
+</body>
+</html>

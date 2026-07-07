@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --card-bg: #2d2d44;
+  --arrow-color: #4ecdc4;
+  --slide-duration: 0.4s;
+}
+
+body {
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 40px;
+  font-size: 1.8rem;
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--card-bg);
+  padding: 20px;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  transition: transform var(--slide-duration) ease;
+  will-change: transform;
+}
+
+.card {
+  flex: 0 0 calc(33.333% - 11px);
+  background: #1e1e32;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid rgba(78, 205, 196, 0.15);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #2d2d44;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #e2e8f0;
+}
+
+.card .price {
+  color: var(--arrow-color);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: var(--arrow-color);
+  color: #0f172a;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: opacity 0.2s;
+}
+
+.arrow:hover {
+  opacity: 0.85;
+}
+
+.arrow.prev {
+  left: 8px;
+}
+
+.arrow.next {
+  right: 8px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #555;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: var(--arrow-color);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.card-active {
+  animation: slideIn var(--slide-duration) ease;
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex: 0 0 calc(50% - 8px);
+  }
+}
