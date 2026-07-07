@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Announcement Banner Scroll</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="banner" role="banner" aria-live="polite">
+    <div class="banner-track">
+      <span class="banner-text">🎉 New release v2.0 is here! Check out the latest features →</span>
+      <span class="banner-text">🎉 New release v2.0 is here! Check out the latest features →</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>
+      Banner BG
+      <input type="color" value="#ff6b6b" data-var="--banner-bg" />
+    </label>
+    <label>
+      Text Color
+      <input type="color" value="#ffffff" data-var="--text-color" />
+    </label>
+    <label>
+      Scroll Duration
+      <input type="range" min="2" max="30" step="0.5" value="8" data-var="--scroll-duration" data-unit="s" />
+      <span class="val">8s</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+  </script>
+</body>
+</html>
