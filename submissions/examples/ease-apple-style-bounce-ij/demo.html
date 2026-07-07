@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apple Style Bounce</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bounce-scene">
+    <div class="bounce-object">🍎</div>
+    <div class="bounce-shadow"></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetBounce()">Bounce Again</button>
+
+  <div class="controls">
+    <label>
+      Object Color
+      <input type="color" value="#4ecdc4" data-var="--object-color" />
+    </label>
+    <label>
+      Shadow Color
+      <input type="color" value="#555555" data-var="--shadow-color" />
+    </label>
+    <label>
+      Bounce Duration
+      <input type="range" min="0.2" max="2" step="0.1" value="0.8" data-var="--bounce-duration" data-unit="s" />
+      <span class="val">0.8s</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+
+    function resetBounce() {
+      const object = document.querySelector('.bounce-object');
+      const shadow = document.querySelector('.bounce-shadow');
+      object.classList.remove('bounce');
+      shadow.classList.remove('bounce');
+      void object.offsetWidth;
+      object.classList.add('bounce');
+      shadow.classList.add('bounce');
+    }
+
+    window.addEventListener('load', resetBounce);
+  </script>
+</body>
+</html>
