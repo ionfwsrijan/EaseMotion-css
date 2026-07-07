@@ -1,0 +1,182 @@
+:root {
+  --letter-bg: #2d2d44;
+  --sort-color: #4ecdc4;
+  --sort-duration: 0.4s;
+}
+
+.alphabet-sort {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #1a1a2e;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  font-family: system-ui, sans-serif;
+}
+
+.alphabet-sort__rack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 80px;
+  align-items: center;
+}
+
+.alphabet-sort__letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 0.5rem;
+  background: var(--letter-bg);
+  color: #e2e8f0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: monospace;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+.alphabet-sort__letter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.alphabet-sort__letter--sorted {
+  background: var(--sort-color);
+  color: #0f0f1a;
+  border-color: var(--sort-color);
+  box-shadow: 0 0 16px rgba(78, 205, 196, 0.25);
+}
+
+.alphabet-sort__letter--entering {
+  animation: sort-letter-in var(--sort-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.alphabet-sort__letter--exiting {
+  animation: sort-letter-out var(--sort-duration) ease-in both;
+}
+
+.alphabet-sort__letter--swapping {
+  animation: sort-letter-swap var(--sort-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.alphabet-sort__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.alphabet-sort__btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.alphabet-sort__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--sort-color);
+}
+
+.alphabet-sort__btn--primary {
+  background: var(--sort-color);
+  color: #0f0f1a;
+  border-color: var(--sort-color);
+  font-weight: 600;
+}
+
+.alphabet-sort__btn--primary:hover {
+  background: color-mix(in srgb, var(--sort-color) 80%, black);
+  border-color: color-mix(in srgb, var(--sort-color) 80%, black);
+}
+
+.alphabet-sort__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  width: 100%;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.alphabet-sort__controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.alphabet-sort__controls input[type="range"] {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #334155;
+  border-radius: 2px;
+  outline: none;
+}
+
+.alphabet-sort__controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sort-color);
+  cursor: pointer;
+  border: 2px solid #1a1a2e;
+}
+
+.alphabet-sort__controls input[type="color"] {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #334155;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+
+@keyframes sort-letter-in {
+  from { opacity: 0; transform: scale(0.5) translateY(-20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes sort-letter-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.5) translateY(20px); }
+}
+
+@keyframes sort-letter-swap {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-16px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alphabet-sort__letter--entering,
+  .alphabet-sort__letter--exiting,
+  .alphabet-sort__letter--swapping {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

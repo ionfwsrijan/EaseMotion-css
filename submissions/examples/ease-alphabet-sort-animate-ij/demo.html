@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alphabet Sort Animate — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #0f0f1a;">
+
+  <div class="alphabet-sort">
+    <div class="alphabet-sort__rack" id="rack"></div>
+
+    <div class="alphabet-sort__toolbar">
+      <button class="alphabet-sort__btn alphabet-sort__btn--primary" id="sortBtn">Sort A–Z</button>
+      <button class="alphabet-sort__btn" id="shuffleBtn">Shuffle</button>
+      <button class="alphabet-sort__btn" id="resetBtn">Reset</button>
+    </div>
+
+    <div class="alphabet-sort__controls">
+      <label>
+        Letter background
+        <input type="color" value="#2d2d44" data-var="--letter-bg">
+      </label>
+      <label>
+        Sort color
+        <input type="color" value="#4ecdc4" data-var="--sort-color">
+      </label>
+      <label>
+        Sort speed
+        <input type="range" min="0.1" max="1" step="0.05" value="0.4" data-var="--sort-duration">
+        <span id="speed-val">0.4s</span>
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const rack = document.getElementById("rack");
+    const letters = "HXZABKFYJQMWNPLSUVTDGROCIE";
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function render(items) {
+      rack.innerHTML = "";
+      items.forEach((ch, i) => {
+        const el = document.createElement("span");
+        el.className = "alphabet-sort__letter";
+        el.textContent = ch;
+        el.dataset.index = i;
+        el.style.animationDelay = `${i * 0.04}s`;
+        rack.appendChild(el);
+      });
+    }
+
+    let current = letters.split("");
+
+    function getLetterEls() {
+      return [...rack.querySelectorAll(".alphabet-sort__letter")];
+    }
+
+    function animateSort() {
+      const els = getLetterEls();
+      els.forEach(el => el.classList.remove("alphabet-sort__letter--entering", "alphabet-sort__letter--exiting", "alphabet-sort__letter--sorted", "alphabet-sort__letter--swapping"));
+
+      const sorted = [...current].sort((a, b) => a.localeCompare(b));
+      const sortedSet = new Set(sorted);
+
+      els.forEach(el => {
+        if (sortedSet.has(el.textContent)) {
+          el.classList.add("alphabet-sort__letter--swapping");
+        }
+      });
+
+      setTimeout(() => {
+        current = sorted;
+        render(current);
+        requestAnimationFrame(() => {
+          getLetterEls().forEach(el => {
+            el.classList.add("alphabet-sort__letter--entering", "alphabet-sort__letter--sorted");
+          });
+        });
+      }, parseFloat(getComputedStyle(root).getPropertyValue("--sort-duration")) * 1000 || 400);
+    }
+
+    function animateShuffle() {
+      const els = getLetterEls();
+      els.forEach(el => el.classList.remove("alphabet-sort__letter--entering", "alphabet-sort__letter--exiting", "alphabet-sort__letter--sorted", "alphabet-sort__letter--swapping"));
+
+      els.forEach(el => el.classList.add("alphabet-sort__letter--exiting"));
+
+      setTimeout(() => {
+        current = shuffle([...current]);
+        render(current);
+        requestAnimationFrame(() => {
+          getLetterEls().forEach(el => el.classList.add("alphabet-sort__letter--entering"));
+        });
+      }, parseFloat(getComputedStyle(root).getPropertyValue("--sort-duration")) * 1000 || 400);
+    }
+
+    document.getElementById("sortBtn").addEventListener("click", animateSort);
+    document.getElementById("shuffleBtn").addEventListener("click", animateShuffle);
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      current = letters.split("");
+      render(current);
+      requestAnimationFrame(() => {
+        getLetterEls().forEach(el => el.classList.add("alphabet-sort__letter--entering"));
+      });
+    });
+
+    document.querySelectorAll("[data-var]").forEach(input => {
+      input.addEventListener("input", () => {
+        const val = input.type === "range" ? input.value + "s" : input.value;
+        root.style.setProperty(input.dataset.var, val);
+        if (input.type === "range") {
+          document.getElementById("speed-val").textContent = val;
+        }
+      });
+    });
+
+    render(current);
+    requestAnimationFrame(() => {
+      getLetterEls().forEach(el => el.classList.add("alphabet-sort__letter--entering"));
+    });
+  </script>
+</body>
+</html>
