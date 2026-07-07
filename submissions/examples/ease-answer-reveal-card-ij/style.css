@@ -1,0 +1,111 @@
+:root {
+  --card-bg: #2d2d44;
+  --reveal-color: #4ecdc4;
+  --wipe-duration: 0.5s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  background: #1a1a2e;
+  font-family: system-ui, sans-serif;
+}
+
+.reveal-card {
+  position: relative;
+  width: 360px;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--card-bg);
+}
+
+.reveal-card-front,
+.reveal-card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  transition: clip-path var(--wipe-duration) ease;
+}
+
+.reveal-card-front {
+  background: var(--card-bg);
+  clip-path: inset(0 0 0 0);
+  z-index: 2;
+  gap: 16px;
+}
+
+.reveal-card.revealed .reveal-card-front {
+  clip-path: inset(0 0 100% 0);
+}
+
+.reveal-card-back {
+  background: var(--reveal-color);
+  clip-path: inset(100% 0 0 0);
+  z-index: 1;
+}
+
+.reveal-card.revealed .reveal-card-back {
+  clip-path: inset(0 0 0 0);
+}
+
+.question {
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.hint {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+
+.answer {
+  color: #1a1a2e;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background: #2d2d44;
+  border-radius: 12px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+.controls input[type="range"] {
+  width: 140px;
+  accent-color: #4ecdc4;
+}
+
+.controls .val {
+  color: #4ecdc4;
+  font-size: 0.8rem;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Answer Reveal Card</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="reveal-card" tabindex="0" role="button" aria-label="Click to reveal answer">
+    <div class="reveal-card-front">
+      <p class="question">What is the speed of light in vacuum?</p>
+      <span class="hint">Click to reveal →</span>
+    </div>
+    <div class="reveal-card-back">
+      <p class="answer">299,792,458 m/s</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>
+      Card BG
+      <input type="color" value="#2d2d44" data-var="--card-bg" />
+    </label>
+    <label>
+      Reveal Color
+      <input type="color" value="#4ecdc4" data-var="--reveal-color" />
+    </label>
+    <label>
+      Wipe Duration
+      <input type="range" min="100" max="1500" step="50" value="500" data-var="--wipe-duration" data-unit="ms" />
+      <span class="val">500ms</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+
+    document.querySelector('.reveal-card').addEventListener('click', function() {
+      this.classList.toggle('revealed');
+    });
+  </script>
+</body>
+</html>
