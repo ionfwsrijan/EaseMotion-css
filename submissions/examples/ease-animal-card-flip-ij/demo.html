@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animal Card Flip</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card-grid">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="animal">🐶</span>
+          <span class="label">Dog</span>
+        </div>
+        <div class="flip-card-back">
+          <h3>Dog</h3>
+          <p>Canis familiaris — loyal, social, and known as man's best friend.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="animal">🐱</span>
+          <span class="label">Cat</span>
+        </div>
+        <div class="flip-card-back">
+          <h3>Cat</h3>
+          <p>Felis catus — curious, independent, and beloved household companions.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="animal">🦁</span>
+          <span class="label">Lion</span>
+        </div>
+        <div class="flip-card-back">
+          <h3>Lion</h3>
+          <p>Panthera leo — the king of the jungle, powerful and majestic.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>
+      Card Front
+      <input type="color" value="#2d2d44" data-var="--card-front" />
+    </label>
+    <label>
+      Card Back
+      <input type="color" value="#4ecdc4" data-var="--card-back" />
+    </label>
+    <label>
+      Flip Duration
+      <input type="range" min="100" max="2000" step="50" value="600" data-var="--flip-duration" data-unit="ms" />
+      <span class="val">600ms</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+  </script>
+</body>
+</html>
