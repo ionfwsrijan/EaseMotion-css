@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angle Adjustable Tooltip</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="tooltip-wrapper">
+    <button class="trigger" aria-describedby="tooltip">Hover me</button>
+    <div class="tooltip" id="tooltip" role="tooltip">
+      <span class="tooltip-text">Adjustable angle tooltip!</span>
+      <div class="tooltip-arrow"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>
+      Arrow Angle
+      <input type="range" min="0" max="360" value="180" data-var="--arrow-angle" />
+      <span class="val">180°</span>
+    </label>
+    <label>
+      Tooltip BG
+      <input type="color" value="#333333" data-var="--tooltip-bg" />
+    </label>
+    <label>
+      Arrow Color
+      <input type="color" value="#4ecdc4" data-var="--arrow-color" />
+    </label>
+    <label>
+      Pop Duration
+      <input type="range" min="0" max="1000" step="10" value="200" data-var="--pop-duration" data-unit="ms" />
+      <span class="val">200ms</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+  </script>
+</body>
+</html>
