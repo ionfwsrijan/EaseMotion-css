@@ -1,0 +1,124 @@
+:root {
+  --drawer-bg: #2d2d44;
+  --icon-color: #4ecdc4;
+  --slide-duration: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  background: #1a1a2e;
+  font-family: system-ui, sans-serif;
+}
+
+.drawer-toggle {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  background: #4ecdc4;
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--slide-duration) ease;
+  z-index: 8;
+}
+
+.drawer-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--drawer-bg);
+  border-radius: 20px 20px 0 0;
+  padding: 16px 24px 30px;
+  transform: translateY(100%);
+  transition: transform var(--slide-duration) ease;
+  z-index: 9;
+}
+
+.drawer.open {
+  transform: translateY(0);
+}
+
+.drawer-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 auto 20px;
+}
+
+.drawer-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.drawer-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  font-size: 1.5rem;
+  transition: background var(--slide-duration) ease;
+  cursor: pointer;
+}
+
+.drawer-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background: #2d2d44;
+  border-radius: 12px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+.controls input[type="range"] {
+  width: 140px;
+  accent-color: #4ecdc4;
+}
+
+.controls .val {
+  color: #4ecdc4;
+  font-size: 0.8rem;
+}

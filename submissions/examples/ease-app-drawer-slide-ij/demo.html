@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Drawer Slide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button class="drawer-toggle">☰ Open Drawer</button>
+
+  <div class="drawer-overlay"></div>
+
+  <div class="drawer">
+    <div class="drawer-handle"></div>
+    <div class="drawer-icons">
+      <div class="drawer-icon">⚙️</div>
+      <div class="drawer-icon">📁</div>
+      <div class="drawer-icon">🔍</div>
+      <div class="drawer-icon">📊</div>
+      <div class="drawer-icon">🛠️</div>
+      <div class="drawer-icon">📝</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>
+      Drawer BG
+      <input type="color" value="#2d2d44" data-var="--drawer-bg" />
+    </label>
+    <label>
+      Icon Color
+      <input type="color" value="#4ecdc4" data-var="--icon-color" />
+    </label>
+    <label>
+      Slide Duration
+      <input type="range" min="100" max="1000" step="50" value="300" data-var="--slide-duration" data-unit="ms" />
+      <span class="val">300ms</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+
+    const toggle = document.querySelector('.drawer-toggle');
+    const drawer = document.querySelector('.drawer');
+    const overlay = document.querySelector('.drawer-overlay');
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('visible');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('visible');
+    }
+
+    toggle.addEventListener('click', openDrawer);
+    overlay.addEventListener('click', closeDrawer);
+  </script>
+</body>
+</html>
