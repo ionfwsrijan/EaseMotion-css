@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Launcher Grid</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="launcher-grid">
+    <div class="app-icon" style="--i: 0">📱</div>
+    <div class="app-icon" style="--i: 1">📷</div>
+    <div class="app-icon" style="--i: 2">🎵</div>
+    <div class="app-icon" style="--i: 3">📧</div>
+    <div class="app-icon" style="--i: 4">🌐</div>
+    <div class="app-icon" style="--i: 5">🎮</div>
+    <div class="app-icon" style="--i: 6">📄</div>
+    <div class="app-icon" style="--i: 7">🔒</div>
+    <div class="app-icon" style="--i: 8">🗺️</div>
+  </div>
+
+  <button class="reset-btn" onclick="resetGrid()">Replay Animation</button>
+
+  <div class="controls">
+    <label>
+      Grid BG
+      <input type="color" value="#1a1a2e" data-var="--grid-bg" />
+    </label>
+    <label>
+      Icon BG
+      <input type="color" value="#2d2d44" data-var="--icon-bg" />
+    </label>
+    <label>
+      Bounce Duration
+      <input type="range" min="100" max="1200" step="50" value="400" data-var="--bounce-duration" data-unit="ms" />
+      <span class="val">400ms</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.controls input').forEach(input => {
+      input.addEventListener('input', () => {
+        const val = input.dataset.unit ? input.value + input.dataset.unit : input.value;
+        document.documentElement.style.setProperty(input.dataset.var, val);
+        const span = input.parentElement.querySelector('.val');
+        if (span) span.textContent = input.dataset.unit ? input.value + input.dataset.unit : val;
+      });
+    });
+
+    function resetGrid() {
+      const grid = document.querySelector('.launcher-grid');
+      grid.classList.remove('animate');
+      void grid.offsetWidth;
+      grid.classList.add('animate');
+    }
+
+    window.addEventListener('load', resetGrid);
+  </script>
+</body>
+</html>
