@@ -1,0 +1,1 @@
+:root{--primary:#4f46e5}:root{--primary:#4f46e5}*{margin:0}body{font-family:sans-serif}.container{max-width:480px}h1{font-size:1.5rem}.subtitle{font-size:.875rem}.demo-box{background:#fff}.anim-target{width:80px;height:80px}.anim-target.active{transform:scale(1.2)}.trigger{background:var(--primary)}.trigger:hover{background:#4338ca}
