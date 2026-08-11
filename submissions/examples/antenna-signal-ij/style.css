@@ -1,0 +1,30 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;unicode-bidi:normal}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#101a24;font-family:'Lucida Console',monospace}
+.ats-card{width:286px;border-radius:18px;padding:18px;background:linear-gradient(170deg,#1d3347,#0d1a26);color:#e3f0fb;box-shadow:0 18px 38px rgba(0,0,0,.5)}
+.ats-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ats-title{font-size:17px;letter-spacing:1px;color:#c4ddf0}
+.ats-freq{font-size:11px;color:#8fc3e8;background:#12283a;padding:3px 9px;border-radius:9px}
+.ats-stage{position:relative;height:176px;border-radius:12px;background:linear-gradient(#223d55,#0e1d2b);border:2px solid #2b4d6b;overflow:hidden}
+.ats-mast{position:absolute;bottom:0;left:50%;width:8px;height:120px;margin-left:-4px;background:#46647f;border-radius:4px 4px 0 0}
+.ats-arm{position:absolute;top:60px;left:50%;width:86px;height:6px;margin-left:-43px;border-radius:3px;background:#3d5a74}
+.ats-dish{position:absolute;top:40px;left:50%;width:44px;height:24px;margin-left:-22px;border-radius:50%;background:#6a8ba6}
+.ats-ring{position:absolute;left:50%;top:88px;border-radius:50%;border:2px solid #7fd7ff;transform:translateX(-50%)}
+.ats-ring-1{width:26px;height:26px;margin-left:-13px;animation:ats-ring-burst-antenna-signal 2.4s ease-out infinite}
+.ats-ring-2{width:26px;height:26px;margin-left:-13px;animation:ats-ring-burst-antenna-signal 2.4s ease-out .8s infinite}
+.ats-ring-3{width:26px;height:26px;margin-left:-13px;animation:ats-ring-burst-antenna-signal 2.4s ease-out 1.6s infinite}
+.ats-arc{position:absolute;top:16px;left:50%;width:120px;height:60px;margin-left:-60px;border-radius:120px 120px 0 0;border-top:3px solid rgba(127,215,255,.7);animation:ats-arc-sweep-antenna-signal 3s ease-in-out infinite}
+.ats-bars{display:flex;align-items:flex-end;justify-content:center;gap:6px;height:46px;margin-top:12px;padding:8px;border-radius:10px;background:#0d1a26;border:2px solid #2b4d6b}
+.ats-bar{width:14px;border-radius:3px 3px 0 0;background:#7fd7ff;animation:ats-blip-led-antenna-signal 1.8s ease-in-out infinite}
+.ats-bar-1{height:12px}
+.ats-bar-2{height:24px;animation-delay:.3s}
+.ats-bar-3{height:34px;animation-delay:.6s}
+.ats-bar-4{height:16px;animation-delay:.9s}
+.ats-read{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding:10px 12px;background:#0d1a26;border-radius:10px}
+.ats-rssi{font-size:18px;color:#9fe0ff}
+.ats-snr{font-size:12px;color:#8fc3e8}
+.ats-foot{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:#8fc3e8}
+.ats-led{color:#7fd7a0;animation:ats-blip-led-antenna-signal 1.2s steps(2) infinite}
+.ats-ups{color:#8fc3e8}
+@keyframes ats-ring-burst-antenna-signal{0%{opacity:.9;transform:translateX(-50%) scale(.3)}100%{opacity:0;transform:translateX(-50%) scale(1.9)}}
+@keyframes ats-arc-sweep-antenna-signal{0%,100%{opacity:.25;transform:scaleX(.7)}50%{opacity:.95;transform:scaleX(1.1)}}
+@keyframes ats-blip-led-antenna-signal{0%,100%{opacity:.3}50%{opacity:1}}
