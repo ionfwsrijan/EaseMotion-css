@@ -1,0 +1,27 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;writing-mode:horizontal-tb}
+body{min-height:100vh;display:grid;place-items:center;background:#18202a;font-family:'Century Gothic',sans-serif}
+.wvn-card{width:274px;border-radius:18px;padding:18px;background:linear-gradient(165deg,#2c3644,#141c26);color:#e8eef6;box-shadow:0 16px 36px rgba(0,0,0,.5)}
+.wvn-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.wvn-title{font-size:16px;letter-spacing:1px;color:#c6d2df}
+.wvn-height{font-size:11px;color:#9fb2c8;background:#202a36;padding:3px 9px;border-radius:9px}
+.wvn-stage{position:relative;height:178px;border-radius:12px;background:linear-gradient(#314054,#18222e);border:2px solid #3a4a5e;overflow:hidden}
+.wvn-compass{position:absolute;left:50%;top:50%;width:140px;height:140px;margin:-70px 0 0 -70px;border-radius:50%;border:2px solid #46576e;background:#223042}
+.wvn-dir{position:absolute;font-size:12px;font-weight:700;color:#cfe0f0}
+.wvn-dir-n{top:6px;left:50%;transform:translateX(-50%)}
+.wvn-dir-e{right:8px;top:50%;transform:translateY(-50%)}
+.wvn-dir-s{bottom:6px;left:50%;transform:translateX(-50%)}
+.wvn-dir-w{left:8px;top:50%;transform:translateY(-50%)}
+.wvn-needle{position:absolute;left:50%;top:50%;width:6px;height:88px;margin:-72px 0 0 -3px;border-radius:3px;background:linear-gradient(#ff8a5c,#ffd166);transform-origin:bottom center;animation:wvn-swing-needle-wind-vane 4s ease-in-out infinite}
+.wvn-spindle{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#f2a04a}
+.wvn-cup{position:absolute;top:40px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#f2a04a;animation:wvn-spin-cup-wind-vane 4s linear infinite}
+.wvn-cup-1{transform-origin:0 40px}
+.wvn-cup-2{top:118px;margin-left:-9px;animation-delay:2s}
+.wvn-read{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding:10px 12px;background:#141c26;border-radius:10px}
+.wvn-heading{font-size:22px;color:#ffd166;animation:wvn-blink-dir-wind-vane 1.6s steps(2) infinite}
+.wvn-speed{font-size:12px;color:#9fb2c8}
+.wvn-foot{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:#9fb2c8}
+.wvn-gust{color:#c9b8ff}
+.wvn-cal{color:#9fb2c8}
+@keyframes wvn-swing-needle-wind-vane{0%,100%{transform:rotate(-40deg)}50%{transform:rotate(40deg)}}
+@keyframes wvn-spin-cup-wind-vane{0%,100%{transform:rotate(0)}50%{transform:rotate(180deg)}}
+@keyframes wvn-blink-dir-wind-vane{0%,100%{opacity:.3}50%{opacity:1}}
